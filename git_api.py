@@ -139,6 +139,10 @@ class GitEngine(object):
         command += " +refs/heads/*:refs/remotes/%s/*" % refs_name
         self.__exec(command)
 
+    def submodule_update(self):
+        command = "git submodule update"
+        self.__exec(command)
+
     def cherry_pick(self, from_sha):
         command = "git cherry-pick %s" % from_sha
 
