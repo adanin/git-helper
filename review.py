@@ -30,10 +30,10 @@ class Review(object):
 
     def rebase(self):
         self.git.fetch()
-        self.git.submodule_init()
-        self.git.submodule_update()
         self.git.checkout_from_remote_branch("remotes/origin/%s" % \
                 self.remote_branch)
+        self.git.submodule_init()
+        self.git.submodule_update()
 
         try:
             self.git.rebase("remotes/origin/master")
