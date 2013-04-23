@@ -147,6 +147,11 @@ class GitEngine(object):
         command = "git submodule update"
         self.__exec(command)
 
+    def wipe_all_submodules_helper(self):
+        command = "for path in `git submodule status|cut -d' ' -f3`;" \
+                  " do rm -rf $path; done"
+        self.__exec(command)
+
     def cherry_pick(self, from_sha):
         command = "git cherry-pick %s" % from_sha
 

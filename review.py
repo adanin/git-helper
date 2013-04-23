@@ -32,6 +32,10 @@ class Review(object):
         self.git.fetch()
         self.git.checkout_from_remote_branch("remotes/origin/%s" % \
                 self.remote_branch)
+        self.git.submodule_init()
+
+        # Wipe all submodule's dirs before rebasing.
+        self.git.wipe_all_submodules_helper()
 
         try:
             self.git.rebase("remotes/origin/master")
@@ -40,7 +44,6 @@ class Review(object):
                     " Try to 'git rebase origin/master' from your local" \
                     "branch and push again" % self.remote_branch)
 
-        self.git.submodule_init()
         self.git.submodule_update()
 
     def push(self):
