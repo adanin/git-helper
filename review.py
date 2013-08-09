@@ -26,7 +26,7 @@ class Review(object):
         config.read(os.path.expanduser("~/.review.conf"))
 
         self.github_user = config.get('github', 'user')
-        self.github_password = config.get('github', 'password')
+        self.github_token = config.get('github', 'token')
 
     def rebase(self):
         self.git.fetch()
@@ -84,7 +84,7 @@ class Review(object):
     def _github_lazy_init(self):
         if not self.github:
             self.github = git_api.GithubEngine(self.github_user,
-                    self.github_password)
+                    self.github_token)
 
 
 if __name__ == "__main__":
