@@ -11,18 +11,19 @@ from socketpool import ConnectionPool
 
 class GithubEngine(object):
 
-    def __init__(self, user, password):
-        self.pool = ConnectionPool(factory=Connection)
-
-        serverurl = "https://api.github.com"
-        auth = BasicAuth(user, password)
-        authreqdata = {"scopes": ["repo"], "note": "admin script"}
-        resource = Resource('https://api.github.com/authorizations',
-                pool=self.pool, filters=[auth])
-        response = resource.post(headers={"Content-Type": "application/json"},
-                payload=json.dumps(authreqdata))
-        self.token = json.loads(response.body_string())['token']
-
+    def __init__(self, user, token):
+        # This code creates a token.  But let's create token manually one
+        # time and get rid of this lines
+        #self.pool = ConnectionPool(factory=Connection)
+        #serverurl = "https://api.github.com"
+        #auth = BasicAuth(user, password)
+        #authreqdata = {"scopes": ["repo"], "note": "admin script"}
+        #resource = Resource('https://api.github.com/authorizations',
+        #        pool=self.pool, filters=[auth])
+        #response = resource.post(headers={"Content-Type": "application/json"},
+        #        payload=json.dumps(authreqdata))
+        #self.token = json.loads(response.body_string())['token']
+        self.token = token
         self.headers = {'Content-Type': 'application/json',
                 'Authorization': 'token %s' % self.token}
 
